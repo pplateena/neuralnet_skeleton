@@ -9,6 +9,7 @@ from time import sleep
 def capture_mode(mode, region=None, name=None):
     with mss.mss() as sct:
         match mode:
+            # region (x_min, y_min, x_max, y_max)
             case 'map':
                 region_window = (530, 360, 1340, 890)
                 cici.press_key('m')

@@ -1,2 +1,3 @@
 dataset/*
 *.png
+utility_modules/__pycache__/capture.cpython-312.pyc

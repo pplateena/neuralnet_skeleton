@@ -5,14 +5,93 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10d6985e-497c-4e8b-af64-17de085fdd79" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/neuralnet_skeleton.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data_recorder.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fine_recorder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/0_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/0_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/10_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/10_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/11_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/11_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/12_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/12_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/13_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/13_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/14_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/14_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/15_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/15_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/16_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/16_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/17_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/17_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/18_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/18_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/19_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/19_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/1_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/1_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/20_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/20_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/21_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/21_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/22_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/22_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/23_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/23_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/24_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/24_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/25_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/25_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/26_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/26_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/27_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/27_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/28_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/28_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/29_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/29_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/2_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/2_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/30_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/30_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/31_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/31_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/32_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/32_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/33_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/33_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/34_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/34_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/35_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/35_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/36_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/36_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/37_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/37_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/38_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/38_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/39_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/39_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/3_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/3_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/40_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/40_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/41_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/41_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/4_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/4_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/5_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/5_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/6_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/6_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/7_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/7_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/8_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/8_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/9_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/9_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fine_recorder.py" beforeDir="false" afterPath="$PROJECT_DIR$/fine_recorder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utility_modules/capture.py" beforeDir="false" afterPath="$PROJECT_DIR$/utility_modules/capture.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +213,8 @@
       <workItem from="1717492569918" duration="4000" />
       <workItem from="1717492590657" duration="1926000" />
       <workItem from="1717671118930" duration="3217000" />
-      <workItem from="1719338490372" duration="2303000" />
+      <workItem from="1719338490372" duration="12406000" />
+      <workItem from="1719356851999" duration="1059000" />
     </task>
     <servers />
   </component>
@@ -142,7 +222,7 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/neuralnet_skeleton$fine_recorder.coverage" NAME="fine_recorder Coverage Results" MODIFIED="1719340728748" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/neuralnet_skeleton$fine_recorder.coverage" NAME="fine_recorder Coverage Results" MODIFIED="1719357521245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/neuralnet_skeleton$data_recorder.coverage" NAME="data_recorder Coverage Results" MODIFIED="1717493261790" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
