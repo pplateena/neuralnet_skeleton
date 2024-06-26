@@ -8,7 +8,8 @@ from utility_modules.move_ctype import RMB_down, LMB_down
 from pynput.mouse import Listener, Controller
 from pynput import keyboard, mouse
 from multiprocessing import Process
-
+import playsound
+photo_sound ='dataset/LootCoinSmall.mp3'
 def scalar_mousepos(mx, my):
     # mx, my = position()
     scalar_mx, scalar_my = round(mx/1920, 4) ,round(my/1080, 4)
@@ -23,6 +24,7 @@ def record_mouse():
             timing = round(time(), 1)
 
             cv2.imwrite(f'dataset/M_{button}_{x}_{y}_{timing}.jpg', sct)
+            playsound.playsound(photo_sound, block=False)
 
     print('starting M')
 
@@ -90,10 +92,10 @@ def record_special():
 
 if __name__ == '__main__':
     db_number = 'b' #input("enter db dataset starting_number")
-    # mouse = Process(target=record_mouse, args=db_number,)
+    mouse = Process(target=record_mouse(),)
     keyboard = Process(target=record_special())
-    # mouse.start()
-    keyboard.start()
-    # mouse.join()
-    keyboard.join()
+    mouse.start()
+    # keyboard.start()
+    mouse.join()
+    # keyboard.join()
     print('finita')

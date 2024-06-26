@@ -86,41 +86,50 @@ def label_photos(image_folder_path, df):
             cv2.imshow('labeler', image)
 
     s= 0
-    for filename in os.listdir(image_folder_path):
-
-        if filename.endswith(".jpg") and not filename.startswith(label_type):
-            print(f'opened: {filename}')
-            cv2.setMouseCallback('labeler', click_event, param=[image_folder_path + filename])
-            image = cv2.imread(image_folder_path+filename)
-
-
-            clicked_coords = [(0, 0)]
-            x, y = 0, 0
+    try:
+        for filename in os.listdir(image_folder_path):
+            print(filename)
+            finish = False
+            if filename.endswith(".jpg") and not filename.startswith(label_type):
+                print(f'opened: {filename}')
+                cv2.setMouseCallback('labeler', click_event, param=[image_folder_path + filename])
+                image = cv2.imread(image_folder_path+filename)
 
 
-            cv2.imshow('labeler', image)
-
-            while cv2.waitKey(1) & 0xFF != ord('z'):
-                if x != clicked_coords[0][0] and y != clicked_coords[0][1]:
-                    x, y = clicked_coords[0][0], clicked_coords[0][1]
+                clicked_coords = [(0, 0)]
+                x, y = 0, 0
 
 
-            new_name = f'{label_type}_{df_index}.jpg'
-            print(f'x,y:{x},{y} \nname {new_name}')
-            df.loc[df_index] = [new_name, x, y]
+                cv2.imshow('labeler', image)
+                key = cv2.waitKey(1) & 0xFF
+                while key != ord('z'):
+                    key = cv2.waitKey(1) & 0xFF
+                    if x != clicked_coords[0][0] and y != clicked_coords[0][1]:
+                        x, y = clicked_coords[0][0], clicked_coords[0][1]
 
-            os.rename(image_folder_path+filename, image_folder_path+new_name)
+                    if key == ord('x'):
+                        finish = True
+                        break
 
-            df_index += 1
+                if finish == True:
+                    break
+                new_name = f'{label_type}_{df_index}.jpg'
+                print(f'x,y:{x},{y} \nname {new_name}')
+                df.loc[df_index] = [new_name, x, y]
 
-        s += 1
-        if s == 50:
-            break
+                os.rename(image_folder_path+filename, image_folder_path+new_name)
+
+                df_index += 1
+
+                s += 1
+            if s == 50:
+                break
+    except Exception as e:
+        print(f"{e}")
 
     df.to_csv(f"{image_folder_path}/{label_type}_data.csv", index=False)
 
 
 
-image_folder_path, df = path_acquisiton('loot')
-
+image_folder_path, df = path_acquisiton('attack')
 label_photos(image_folder_path, df)
