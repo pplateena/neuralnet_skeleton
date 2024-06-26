@@ -70,10 +70,13 @@ def path_acquisiton(mode):
 
 
 def label_photos(image_folder_path, df):
+
+    label_type = image_folder_path.split('/')[1].split('_')[0]
+    print(f'started labeling for: {label_type}')
+    df_index = len(df)
+
     cv2.namedWindow("labeler", cv2.WINDOW_NORMAL)
     cv2.resizeWindow('labeler', 640, 360)
-
-
     def click_event(event, x, y, flags, param):
         if event == cv2.EVENT_LBUTTONDOWN:
             global image  # Access the global image variable within the function
@@ -82,11 +85,11 @@ def label_photos(image_folder_path, df):
             cv2.circle(image, (x, y), 10, (255, 0, 0), -1)
             cv2.imshow('labeler', image)
 
-
+    s= 0
     for filename in os.listdir(image_folder_path):
 
-        if filename.endswith(".jpg") and not filename.startswith('attack'):
-            print(filename)
+        if filename.endswith(".jpg") and not filename.startswith(label_type):
+            print(f'opened: {filename}')
             cv2.setMouseCallback('labeler', click_event, param=[image_folder_path + filename])
             image = cv2.imread(image_folder_path+filename)
 
@@ -98,22 +101,26 @@ def label_photos(image_folder_path, df):
             cv2.imshow('labeler', image)
 
             while cv2.waitKey(1) & 0xFF != ord('z'):
-
                 if x != clicked_coords[0][0] and y != clicked_coords[0][1]:
-                    print('yup')
                     x, y = clicked_coords[0][0], clicked_coords[0][1]
-                    # cv2.circle(image, (x, y), 10, (255, 255, 255), -1)
+
+
+            new_name = f'{label_type}_{df_index}.jpg'
+            print(f'x,y:{x},{y} \nname {new_name}')
+            df.loc[df_index] = [new_name, x, y]
+
+            os.rename(image_folder_path+filename, image_folder_path+new_name)
+
+            df_index += 1
+
+        s += 1
+        if s == 50:
+            break
+
+    df.to_csv(f"{image_folder_path}/{label_type}_data.csv", index=False)
 
 
 
-            print(x,y)
-
-
-
-
-
-image_folder_path, df = path_acquisiton('attack')
-
-print(image_folder_path, df)
+image_folder_path, df = path_acquisiton('loot')
 
 label_photos(image_folder_path, df)
