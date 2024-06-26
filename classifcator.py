@@ -36,6 +36,7 @@ def sort_data():
                 elif key == ord('s'):  # getaway
                     cv2.waitKey(1)
                     print('getaway list')
+                    getaway_list.append(filename)
                 elif key == ord('q'): #explore
                     cv2.waitKey(1)
                     print('explore')
@@ -70,7 +71,7 @@ def sort_data():
             print(f"Deleted {filename}")
 
         for filename in attack_list:
-            os.replace(f'prep_data/{filename}', f'classification_data/attack_img/{filename}')  # Use replace for move functionality
+            os.replace(f'prep_data/{filename}', f'classification_data/attack_img/{filename}')
             print(f"Moved {filename} to attack_img")
 
         for filename in getaway_list:

@@ -86,7 +86,6 @@ def sort_data():
 # sort_data()
 def create_df():
     df = pd.DataFrame(columns=["filename", "scalar_x", "scalar_y", "s_button"])
-
     df.to_csv("prep_data/image_data.csv", index=False)
 
 create_df()
