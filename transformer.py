@@ -89,12 +89,12 @@ def create_df():
 
     df.to_csv("prep_data/image_data.csv", index=False)
 
-create_df()
+# create_df()
 def prepare_data():
     folder_path = "prep_data/"
     df = pd.read_csv("prep_data/image_data.csv")
 
-    counter = len(df)+7000
+    counter = len(df)+100
     for filename in os.listdir(folder_path):
         if filename.endswith(".jpg") and filename.startswith("M_"):
             button, x, y = parse_mfile(filename)
@@ -112,19 +112,17 @@ def prepare_data():
             counter += 1
 
     df.to_csv("prep_data/image_data.csv", index=False)
-prepare_data()
+# prepare_data()
 
 def check_prep():
-    folder_path = "prep_data/"
-    df = pd.read_csv("prep_data/image_data.csv")
-    print(df)
-    for filename in os.listdir(folder_path):
-        if filename.endswith(".jpg"):
-            df_index = int(filename.split(".")[0])
-            _,scalar_x, scalar_y, s_button = df.loc[df_index]
-            print(scalar_x, scalar_y,s_button)
-            x, y, button = round(scalar_x*640), round(scalar_y*360), "left" if s_button == 0 else "right"
-            print(x, y, button)
+    folder_path = "prep_curse/"
+    df = pd.read_csv("prep_curse/image_data.csv")
+    # print(df)
+    for info in df.values:
+
+            filename, scalar_x, scalar_y, s_button = info[0], info[1], info[2], info[3]
+
+            x, y, button = round(scalar_x), round(scalar_y), "left" if s_button == 0 else "right"
             image = cv2.imread(folder_path + filename)
             if image is not None:
                 display = image
@@ -133,4 +131,4 @@ def check_prep():
                 cv2.imshow('rap', display)
                 key = cv2.waitKey(0) & 0xFF
 
-# check_prep()
+check_prep()
