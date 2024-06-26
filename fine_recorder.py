@@ -52,7 +52,7 @@ def record_kb(db_number):
                 x,y = m_pos[0], m_pos[1]
                 sct = capture_mode('desired', region =(0,0,1920,1080))
                 timing = round(time(), 1)
-                cv2.imwrite(f'dataset/KB_space_{x}_{y}_{timing}.png', sct)
+                cv2.imwrite(f'dataset/KB_space_{x}_{y}_{timing}.jpg', sct)
                 print('rap')
 
             else:
