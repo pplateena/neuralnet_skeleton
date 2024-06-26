@@ -96,8 +96,8 @@ def prepare_data():
             image = cv2.imread(image_path)
             resized_image = cv2.resize(image, (640, 360))
             cv2.imwrite(folder_path + filename, resized_image)
-            scalar_x, scalar_y = scalar_mousepos(x,y)
-            s_button = 0 if button == "left" else 1
+            scalar_x, scalar_y = round(x/640), round(y/360),
+            s_button = 0 if button == "left" else 100
             print(scalar_x, scalar_y,s_button, filename)
 
             df.loc[counter] = [f'{counter}.jpg', scalar_x, scalar_y, s_button]
@@ -126,4 +126,4 @@ def check_prep():
                 cv2.imshow('rap', display)
                 key = cv2.waitKey(0) & 0xFF
 
-check_prep()
+# check_prep()
