@@ -91,7 +91,7 @@ def record_special():
 if __name__ == '__main__':
     db_number = 'b' #input("enter db dataset starting_number")
     # mouse = Process(target=record_mouse, args=db_number,)
-    keyboard = Process(target=record_special(), args=,)
+    keyboard = Process(target=record_special())
     # mouse.start()
     keyboard.start()
     # mouse.join()
