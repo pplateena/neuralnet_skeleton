@@ -14,7 +14,7 @@ def scalar_mousepos(mx, my):
     scalar_mx, scalar_my = round(mx/1920, 4) ,round(my/1080, 4)
     return scalar_mx, scalar_my
 
-def record_mouse(db_number):
+def record_mouse():
     def on_click(x, y, button, pressed):
 
         if pressed == True:
@@ -62,12 +62,38 @@ def record_kb(db_number):
     print('starting KB')
     with keyboard.Listener(on_press=on_kbpress) as listener:
         listener.join()
+
+def record_special():
+    def on_kbpress(key):
+        try:
+            actual_key = format(key.char)
+            print(actual_key)
+            if actual_key == 'a':
+                sct = capture_mode('desired', region=(0, 0, 1920, 1080))
+                saved_image = cv2.resize(sct, (640, 360))
+                timing = round(time(), 1)
+                cv2.imwrite(f'classification_data/attack_img/KB_{actual_key}_{timing}.jpg', saved_image)
+            elif actual_key == 'q':
+                sct = capture_mode('desired', region=(0, 0, 1920, 1080))
+                saved_image = cv2.resize(sct, (640, 360))
+                timing = round(time(), 1)
+                cv2.imwrite(f'classification_data/explore_img/KB_{actual_key}_{timing}.jpg', saved_image)
+            else:
+                print('{0} pressed'.format(key))
+
+        except AttributeError:
+            print('special key {0} pressed'.format(key))
+
+
+    with keyboard.Listener(on_press=on_kbpress) as listener:
+        listener.join()
+
 if __name__ == '__main__':
     db_number = 'b' #input("enter db dataset starting_number")
-    mouse = Process(target=record_mouse, args=db_number,)
-    keyboard = Process(target=record_kb, args=db_number,)
-    mouse.start()
-    # keyboard.start()
-    mouse.join()
-    # keyboard.join()
+    # mouse = Process(target=record_mouse, args=db_number,)
+    keyboard = Process(target=record_special(), args=,)
+    # mouse.start()
+    keyboard.start()
+    # mouse.join()
+    keyboard.join()
     print('finita')
