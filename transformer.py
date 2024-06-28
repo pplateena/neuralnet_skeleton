@@ -33,7 +33,7 @@ def sort_data():
     approve_list = []
 
     for filename in os.listdir(folder_path):
-        if filename.endswith(".jpg") and filename.startswith("M_"):
+        if filename.endswith(".jpg") and filename.startswith("M_Button.right"):
 
             button, x, y = parse_mfile(filename)
             print(button, x, y, filename)
@@ -43,7 +43,14 @@ def sort_data():
             if image is not None:
                 display = image
                 draw_dot(display, button, x, y)
+                font = cv2.FONT_HERSHEY_SIMPLEX  # Choose a font (e.g., FONT_HERSHEY_PLAIN)
+                color = (255, 0, 0)  # Blue color in BGR format
+                font_scale = 1
+                thickness = 2
 
+                cv2.putText(display, button, (x, y), font, 2, (255, 255, 255), thickness)
+                cv2.namedWindow("rap", cv2.WINDOW_NORMAL)
+                cv2.resizeWindow('rap', 1600, 900)
                 cv2.imshow('rap', display)
                 key = cv2.waitKey(0) & 0xFF
 
@@ -64,7 +71,7 @@ def sort_data():
 
                 killer += 1
 
-        if killer == 10:
+        if killer == 150:
             break
     cv2.destroyWindow('rap')
 
@@ -96,7 +103,7 @@ def prepare_data():
             image = cv2.imread(image_path)
             resized_image = cv2.resize(image, (640, 360))
             cv2.imwrite(folder_path + filename, resized_image)
-            scalar_x, scalar_y = round(x/640), round(y/360),
+            scalar_x, scalar_y = round(x/3), round(y/3),
             s_button = 0 if button == "left" else 100
             print(scalar_x, scalar_y,s_button, filename)
 
@@ -105,7 +112,7 @@ def prepare_data():
             counter += 1
 
     df.to_csv("prep_data/image_data.csv", index=False)
-prepare_data()
+# prepare_data()
 
 def check_prep():
     folder_path = "prep_data/"
