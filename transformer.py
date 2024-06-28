@@ -33,7 +33,7 @@ def sort_data():
     approve_list = []
 
     for filename in os.listdir(folder_path):
-        if filename.endswith(".jpg") and filename.startswith("M_Button.right"):
+        if filename.endswith(".jpg") and filename.startswith("M_Button"):
 
             button, x, y = parse_mfile(filename)
             print(button, x, y, filename)
@@ -83,18 +83,18 @@ def sort_data():
 
         os.replace(f'dataset/{filename}', f'prep_data/{filename}')  # Use replace for move functionality
         print(f"Moved {filename} to prep_data")
-sort_data()
+# sort_data()
 def create_df():
     df = pd.DataFrame(columns=["filename", "scalar_x", "scalar_y", "s_button"])
 
     df.to_csv("prep_data/image_data.csv", index=False)
 
-# create_df()
+create_df()
 def prepare_data():
     folder_path = "prep_data/"
     df = pd.read_csv("prep_data/image_data.csv")
 
-    counter = len(df)
+    counter = len(df)+7000
     for filename in os.listdir(folder_path):
         if filename.endswith(".jpg") and filename.startswith("M_"):
             button, x, y = parse_mfile(filename)
@@ -112,7 +112,7 @@ def prepare_data():
             counter += 1
 
     df.to_csv("prep_data/image_data.csv", index=False)
-# prepare_data()
+prepare_data()
 
 def check_prep():
     folder_path = "prep_data/"
