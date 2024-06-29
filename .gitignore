@@ -2,3 +2,14 @@ dataset/*
 *.png
 utility_modules/__pycache__/capture.cpython-312.pyc
 /prep_data
+/classification_data/attack_img
+/classification_data/explore_img
+/classification_data/getaway_img
+/classification_data/loot_img
+/classification_data/loot_img
+/classification_data/loot_img
+/classification_data/attack_img
+classification_data/attack_img/7021.jpg
+.idea/workspace.xml
+/.idea
+/classification_data/attack_img
