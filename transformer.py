@@ -93,7 +93,7 @@ def prepare_data():
     folder_path = "prep_data/"
     df = pd.read_csv("prep_data/image_data.csv")
 
-    counter = len(df)+8000
+    counter = 2300
     for filename in os.listdir(folder_path):
         if filename.endswith(".jpg") and filename.startswith("M_"):
             button, x, y = parse_mfile(filename)

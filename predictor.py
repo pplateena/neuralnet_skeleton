@@ -8,9 +8,9 @@ import tensorflow as tf
 import playsound
 from time import sleep
 
-model_classifier = tf.keras.models.load_model('classificator_2.h5')
-model_explorer = tf.keras.models.load_model('mouse_explore_fhd_normalized.h5')
-model_attacker = tf.keras.models.load_model('mouse_attack_fhd_normalized.h5')
+model_classifier = tf.keras.models.load_model('classificator_4.h5')
+model_explorer = tf.keras.models.load_model('mouse_explore_fhd_normalized2.h5')
+model_attacker = tf.keras.models.load_model('mouse_attack_fhd_normalized2.h5')
 
 
 attack_sound = 'classification_data/attack.mp3'
@@ -20,9 +20,9 @@ loot_sound ='classification_data/loot.mp3'
 
 last_three_preds = []
 
-# for n in range(30):
+for n in range(100):
 
-while True:
+# while True:
     img = capture_mode('desired', (0,0,1920,1080))
     resized = cv2.resize(img,(640,360))
 
@@ -39,14 +39,20 @@ while True:
     #     max_index = 1
     last_three_preds.append(max_index)
 
-    if len(last_three_preds) == 4:
+    if len(last_three_preds) == 5:
         last_three_preds.pop(0)
 
-    if all(ele == 0 for ele in last_three_preds) and len(last_three_preds) == 3:
-        print('before', max_index)
-        max_index = 0 if max_index == 1 else 1
-        last_three_preds[2] = max_index
-        print('after', max_index)
+    # if all(ele == 0 for ele in last_three_preds) and len(last_three_preds) == 4:
+    #     print('before', max_index)
+    #     max_index = 0 if max_index == 1 else 1
+    #     last_three_preds[-1] = max_index
+    #     print('after', max_index)
+
+    if last_three_preds[-1] != max_index:
+        if max_index == 0:
+            cici.release_left_button()
+        if max_index == 1:
+            cici.release_right_button()
 
 
     match max_index:
@@ -55,43 +61,46 @@ while True:
 
             predictions = model_attacker.predict(tbp)[0].tolist()
             x, y = int(predictions[0]), int(predictions[0])
-            if x < 0:
-                x = -x
+
+            if x <= 960:
+                x = 960 + x
             else:
                 x = x + 960
 
-            if y < 0:
-                y = -y
+            if y <= 540:
+                y = 540 + y
             else:
                 y = y + 540
+
             print(x,y)
 
             cici.move_cursor_steps(x,y)
-            cici.press_right_button()
-            sleep(0.1)
-            cici.release_right_button()
+            # cici.press_right_button()
+            # sleep(0.1)
+            # cici.release_right_button()
 
         case 1:
             playsound.playsound(explore_sound, block=True)
 
             predictions = model_explorer.predict(tbp)[0].tolist()
             x,y = int(predictions[0]),int(predictions[1])
-            # print(x,y)
-            if x < 0:
-                x = -x
+            print('before', x,y)
+            if x <= 960:
+                x = 960 + x
             else:
                 x = x + 960
 
-            if y < 0:
-                y = -y
+            if y <= 540:
+                y = 540 + y
             else:
                 y = y + 540
+
             #
             print(x,y)
-            cici.press_left_button()
+            # cici.press_left_button()
             cici.move_cursor_steps(x,y)
-            sleep(0.5)
-            cici.release_left_button()
+            # sleep(0.5)
+            # cici.release_left_button()
         # case 2:
         #     playsound.playsound(loot_sound, block=True)
         # case 3:
@@ -99,4 +108,5 @@ while True:
         case _:
             print('ss')
 
+    sleep(1)
 

@@ -37,6 +37,16 @@ def path_acquisiton(mode):
             except Exception as e:
                 print(f"exception {e}")
             return image_folder_path, df
+        case 'attack_aug':
+            try:
+                df = pd.read_csv('augmented_data/attack_img/attack_data.csv')
+                image_folder_path = 'augmented_data/attack_img/'
+            except FileNotFoundError:
+                print('file not found')
+                df = create_df('augmented_data/attack_img/attack_data.csv')
+            except Exception as e:
+                print(f"exception {e}")
+            return image_folder_path, df
         case 'explore':
             try:
                 df = pd.read_csv('classification_data/explore_img/explore_data.csv')
@@ -44,6 +54,16 @@ def path_acquisiton(mode):
             except FileNotFoundError:
                 print('file not found')
                 df = create_df('classification_data/explore_img/explore_data.csv')
+            except Exception as e:
+                print(f"exception {e}")
+            return image_folder_path, df
+        case 'explore_aug':
+            try:
+                df = pd.read_csv('augmented_data/explore_img/explore_data.csv')
+                image_folder_path = 'augmented_data/explore_img/'
+            except FileNotFoundError:
+                print('file not found')
+                df = create_df('augmented_data/explore_img/explore_data.csv')
             except Exception as e:
                 print(f"exception {e}")
             return image_folder_path, df
@@ -90,6 +110,7 @@ def label_photos(image_folder_path, df):
         for filename in os.listdir(image_folder_path):
             print(filename)
             finish = False
+            skip = False
             if filename.endswith(".jpg") and not filename.startswith(label_type):
                 print(f'opened: {filename}')
                 cv2.setMouseCallback('labeler', click_event, param=[image_folder_path + filename])
@@ -107,12 +128,30 @@ def label_photos(image_folder_path, df):
                     if x != clicked_coords[0][0] and y != clicked_coords[0][1]:
                         x, y = clicked_coords[0][0], clicked_coords[0][1]
 
+                    if key == ord('q'):
+                        os.replace(f'{image_folder_path}{filename}', f'augmented_data/explore_img/{filename}')
+                        print(f'moved {filename}')
+                        skip = True
+                        break
+                    if key == ord('a'):
+                        os.replace(f'{image_folder_path}{filename}', f'augmented_data/attack_img/{filename}')
+                        print(f'moved {filename}')
+                        skip = True
+                        break
+                    if key == ord('d'):
+                        os.remove(f'{image_folder_path}{filename}')
+                        print(f"Deleted {filename}")
+                        skip = True
+                        break
+
                     if key == ord('x'):
                         finish = True
                         break
 
                 if finish == True:
                     break
+                if skip == True:
+                    continue
                 new_name = f'{label_type}_{df_index}.jpg'
                 print(f'x,y:{x},{y} \nname {new_name}')
                 df.loc[df_index] = [new_name, x, y]
@@ -120,9 +159,9 @@ def label_photos(image_folder_path, df):
                 os.rename(image_folder_path+filename, image_folder_path+new_name)
 
                 df_index += 1
-
+                print('renamed, created entry')
                 s += 1
-            if s == 50:
+            if s == 100:
                 break
     except Exception as e:
         print(f"{e}")
@@ -131,5 +170,42 @@ def label_photos(image_folder_path, df):
 
 
 
-image_folder_path, df = path_acquisiton('attack')
-label_photos(image_folder_path, df)
+image_folder_path, df = path_acquisiton('attack_aug')
+# label_photos(image_folder_path, df)
+
+for filename in os.listdir(image_folder_path):
+    if filename.endswith('.jpg'):
+        img = cv2.imread(image_folder_path + filename)
+        if img.shape != (360, 640, 3):
+
+            print(filename)
+            img = cv2.resize(img, (640, 360))
+
+
+
+            print('finish')
+            cv2.imwrite(image_folder_path + filename, img)
+
+
+for n in range(len(df)) and False:
+    # df = pd.read_csv('augmented_data/explore_img/explore_data.csv')
+    entry = df.iloc[n]
+    print(entry)
+    filename = entry['filename']
+    img = cv2.imread(image_folder_path + filename)
+    if img.shape != (360, 640, 3):
+        x, y = entry['x'],entry['y']
+        print(filename, x ,y)
+        img = cv2.resize(img, (640, 360))
+
+        x, y = int(x/3), int(y/3)
+        df.iloc[n] = [filename, x, y]
+        print('finish')
+        cv2.imwrite(image_folder_path + filename, img)
+
+    # if int(filename.split('_')[1].split('.')[0]) > 60:
+    #     x, y = entry['x'],entry['y']
+    #     x, y = int(x/3), int(y/3)
+    #     df.iloc[n] = [filename, x, y]
+
+    # df.to_csv(f"{image_folder_path}/attack_data.csv", index=False)

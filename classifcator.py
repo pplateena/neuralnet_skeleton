@@ -7,8 +7,8 @@ def draw_dot(image,button, x, y, radius=20, thickness=-1):
     cv2.circle(image, (x, y), radius, color, thickness)
 
 
-def sort_data():
-    folder_path = "prep_data/"
+def sort_data(folder_path, desired_data_folder):
+    # folder_path = "prep_data/"
     killer = 0
 
     delete_list = []
@@ -19,13 +19,13 @@ def sort_data():
     proceed = True
     for filename in os.listdir(folder_path):
         if filename.endswith(".jpg"):
-            image = cv2.imread(folder_path + filename)
+            image = cv2.imread(folder_path +"/"+ filename)
 
             if image is not None:
                 display = image
                 cv2.namedWindow("rap", cv2.WINDOW_NORMAL)
                 cv2.resizeWindow('rap', 1600, 900)
-                cv2.putText(display, f'{filename}, q-explore, w-loot, a-attack, s-getaway', (50, 20), color = (255,255,255), fontFace = cv2.FONT_HERSHEY_COMPLEX, fontScale = 0.5, thickness = 1)
+                cv2.putText(display, f'{filename}, q-explore, a-attack', (50, 20), color = (255,255,255), fontFace = cv2.FONT_HERSHEY_COMPLEX, fontScale = 0.5, thickness = 1)
                 cv2.imshow('rap', display)
                 key = cv2.waitKey(0) & 0xFF
 
@@ -62,34 +62,40 @@ def sort_data():
                     break
                 killer += 1
 
-        if killer == 150:
+        if killer == 200:
             break
     print(proceed)
+
+
     if proceed != False:
+        #desired_data_folder
+
         for filename in delete_list:
-            os.remove(f'prep_data/{filename}')
+            os.remove(f'{folder_path}/{filename}')
             print(f"Deleted {filename}")
 
         for filename in attack_list:
-            os.replace(f'prep_data/{filename}', f'classification_data/attack_img/{filename}')
+            os.replace(f'{folder_path}/{filename}', f'{desired_data_folder}/attack_img/{filename}')
             print(f"Moved {filename} to attack_img")
 
         for filename in getaway_list:
-            os.replace(f'prep_data/{filename}', f'classification_data/getaway_img/{filename}')
+            os.replace(f'{folder_path}/{filename}', f'{desired_data_folder}/getaway_img/{filename}')
             print(f"Moved {filename} to getaway_img")
 
         for filename in explore_list:
-            os.replace(f'prep_data/{filename}', f'classification_data/explore_img/{filename}')
+            os.replace(f'{folder_path}/{filename}', f'{desired_data_folder}/explore_img/{filename}')
             print(f"Moved {filename} to explore_img")
 
         for filename in loot_list:
-            os.replace(f'prep_data/{filename}', f'classification_data/loot_img/{filename}')
+            os.replace(f'{folder_path}/{filename}', f'{desired_data_folder}/loot_img/{filename}')
+
+
     else:
         print('didnt change files')
 
 
 
-sort_data()
+sort_data('augmented_data','augmented_data')
 
 
 def create_df():
