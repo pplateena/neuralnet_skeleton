@@ -8,7 +8,7 @@ import tensorflow as tf
 import playsound
 from time import sleep
 
-model_classifier = tf.keras.models.load_model('classificator_4.h5')
+model_classifier = tf.keras.models.load_model('classificator_newgen_augment.h5')
 model_explorer = tf.keras.models.load_model('mouse_explore_fhd_normalized2.h5')
 model_attacker = tf.keras.models.load_model('mouse_attack_fhd_normalized2.h5')
 
@@ -19,8 +19,13 @@ getaway_sound ='classification_data/getaway.mp3'
 loot_sound ='classification_data/loot.mp3'
 
 last_three_preds = []
+# img = capture_mode('desired', (0, 0, 1920, 1080))
+# resized = cv2.resize(img, (640, 360))
+# hsv = cv2.cvtColor(resized, cv2.COLOR_BGR2HSV)
+# cv2.imshow('hsv',hsv); cv2.waitKey(0)
+# print(hsv.shape)
 
-for n in range(100):
+for n in range(50):
 
 # while True:
     img = capture_mode('desired', (0,0,1920,1080))
@@ -42,17 +47,17 @@ for n in range(100):
     if len(last_three_preds) == 5:
         last_three_preds.pop(0)
 
-    # if all(ele == 0 for ele in last_three_preds) and len(last_three_preds) == 4:
-    #     print('before', max_index)
-    #     max_index = 0 if max_index == 1 else 1
-    #     last_three_preds[-1] = max_index
-    #     print('after', max_index)
-
-    if last_three_preds[-1] != max_index:
-        if max_index == 0:
-            cici.release_left_button()
-        if max_index == 1:
-            cici.release_right_button()
+    if all(ele == 0 for ele in last_three_preds) and len(last_three_preds) == 4:
+        print('before', max_index)
+        max_index = 0 if max_index == 1 else 1
+        last_three_preds[-1] = max_index
+        print('after', max_index)
+    #
+    # if last_three_preds[-1] != max_index or (all(ele == [last_three_preds[-1]] for ele in last_three_preds) and len(last_three_preds) == 4):
+    #     if max_index == 0:
+    #         cici.release_left_button()
+    #     if max_index == 1:
+    #         cici.release_right_button()
 
 
     match max_index:
@@ -75,9 +80,9 @@ for n in range(100):
             print(x,y)
 
             cici.move_cursor_steps(x,y)
-            # cici.press_right_button()
+            cici.press_right_button()
             # sleep(0.1)
-            # cici.release_right_button()
+            cici.release_right_button()
 
         case 1:
             playsound.playsound(explore_sound, block=True)
@@ -97,10 +102,10 @@ for n in range(100):
 
             #
             print(x,y)
-            # cici.press_left_button()
+            cici.press_left_button()
             cici.move_cursor_steps(x,y)
             # sleep(0.5)
-            # cici.release_left_button()
+            cici.release_left_button()
         # case 2:
         #     playsound.playsound(loot_sound, block=True)
         # case 3:
@@ -108,5 +113,4 @@ for n in range(100):
         case _:
             print('ss')
 
-    sleep(1)
-
+    # sleep(1)
