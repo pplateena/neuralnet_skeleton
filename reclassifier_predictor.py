@@ -10,156 +10,190 @@ def path_acquisiton(mode):
         case 'attack':
             try:
                 df = pd.read_csv('classification_data/attack_img/attack_data.csv')
-                image_folder_path = 'classification_data/attack_img/'
+                looked_folder = 'classification_data/attack_img/'
             except FileNotFoundError:
                 print('file not found')
                 df = create_df('classification_data/attack_img/attack_data.csv')
             except Exception as e:
                 print(f"exception {e}")
-            return image_folder_path, df
+            return looked_folder, df
         case 'attack_aug':
             try:
                 df = pd.read_csv('augmented_data/attack_img/attack_data.csv')
-                image_folder_path = 'augmented_data/attack_img/'
+                looked_folder = 'augmented_data/attack_img/'
             except FileNotFoundError:
                 print('file not found')
                 df = create_df('augmented_data/attack_img/attack_data.csv')
             except Exception as e:
                 print(f"exception {e}")
-            return image_folder_path, df
+            return looked_folder, df
         case 'explore':
             try:
                 df = pd.read_csv('classification_data/explore_img/explore_data.csv')
-                image_folder_path = 'classification_data/explore_img/'
+                looked_folder = 'classification_data/explore_img/'
             except FileNotFoundError:
                 print('file not found')
                 df = create_df('classification_data/explore_img/explore_data.csv')
             except Exception as e:
                 print(f"exception {e}")
-            return image_folder_path, df
+            return looked_folder, df
         case 'explore_aug':
             try:
                 df = pd.read_csv('augmented_data/explore_img/explore_data.csv')
-                image_folder_path = 'augmented_data/explore_img/'
+                looked_folder = 'augmented_data/explore_img/'
             except FileNotFoundError:
                 print('file not found')
                 df = create_df('augmented_data/explore_img/explore_data.csv')
             except Exception as e:
                 print(f"exception {e}")
-            return image_folder_path, df
+            return looked_folder, df
         case 'getaway':
             try:
                 df = pd.read_csv('classification_data/getaway_img/getaway_data.csv')
-                image_folder_path = 'classification_data/getaway_img/'
+                looked_folder = 'classification_data/getaway_img/'
             except FileNotFoundError:
                 print('file not found')
                 df = create_df('classification_data/getaway_img/getaway_data.csv')
             except Exception as e:
                 print(f"exception {e}")
-            return image_folder_path, df
+            return looked_folder, df
         case 'loot':
             try:
                 df = pd.read_csv('classification_data/loot_img/loot_data.csv')
-                image_folder_path = 'classification_data/loot_img/'
+                looked_folder = 'classification_data/loot_img/'
             except FileNotFoundError:
                 print('file not found')
                 df = create_df('classification_data/loot_img/loot_data.csv')
             except Exception as e:
                 print(f"exception {e}")
-            return image_folder_path, df
+            return looked_folder, df
 def prediction_preparation(img):
     tbp = np.asarray(img)
     tbp = np.expand_dims(tbp, axis=0)
     return tbp
-def label_photos(image_folder_path, df):
 
+def reclassify(image_folder_explore, image_folder_attack, df_explore, df_attack, mode, model_predictor):
+    cv2.namedWindow(f"Reclassifier", cv2.WINDOW_NORMAL)
+    cv2.resizeWindow('Reclassifier', 640, 360)
 
-    label_type = image_folder_path.split('/')[1].split('_')[0]
-    cv2.namedWindow("labeler", cv2.WINDOW_NORMAL)
-    cv2.resizeWindow('labeler', 640, 360)
-    def click_event(event, x, y, flags, param):
-        if event == cv2.EVENT_LBUTTONDOWN:
-            global image  # Access the global image variable within the function
-            image = cv2.imread(param[0]).copy()  # Reload image copy on click
-            clicked_coords[0] = (x, y)  # Update coordinates on click
-            cv2.circle(image, (x, y), 10, (255, 0, 0), -1)
-            cv2.imshow('labeler', image)
-
-    s= 0
+    looked_folder = image_folder_explore if mode == "explore" else image_folder_attack
+    looked_df = df_explore if mode == "explore" else df_attack
+    print(looked_folder)
     try:
-        for filename in os.listdir(image_folder_path):
-            print(filename)
+        for filename in os.listdir(looked_folder):
             finish = False
             skip = False
-            drop_db = False
-            if filename.endswith(".jpg"):
+            drop_df = False
+            change_df = False
+
+
+            if filename.endswith(".jpg") and not filename.startswith("checked_"):
                 print(f'opened: {filename}')
-                cv2.setMouseCallback('labeler', click_event, param=[image_folder_path + filename])
-                image = cv2.imread(image_folder_path+filename)
 
+                image = cv2.imread(looked_folder+filename)
+                predictions = model_predictor.predict(prediction_preparation(image))[0].tolist()
 
-                clicked_coords = [(0, 0)]
-                x, y = 0, 0
+                max_index = predictions.index(max(predictions))
 
+                if max_index == 0 and mode == "attack":
+                    print('thatss attack, continuing')
+                    continue
+                elif max_index == 1 and mode == "explore":
+                    print('thats explore, continuing')
+                    continue
 
-                cv2.imshow('labeler', image)
+                display = image
+
+                cv2.putText(display, f"{looked_folder+filename}", (20, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+                cv2.imshow('Reclassifier', display)
+
                 key = cv2.waitKey(1) & 0xFF
-
                 while key != ord('z'):
                     key = cv2.waitKey(1) & 0xFF
-                    if x != clicked_coords[0][0] and y != clicked_coords[0][1]:
-                        x, y = clicked_coords[0][0], clicked_coords[0][1]
 
-                    if key == ord('q'):
-                        os.replace(f'{image_folder_path}{filename}', f'augmented_data/explore_img/{filename}')
-                        print(f'moved {filename}')
-                        drop_db = True
+                    if key == ord('q') and mode != 'explore':
+                        print(f'Replacing {looked_folder}{filename}, for {image_folder_explore + filename}')
+                        os.replace(f'{looked_folder + filename}', f'{image_folder_explore + filename}')
+                        drop_df = True
+                        break
+                    if key == ord('q') and mode == 'explore':
+                        new_filename = 'checked_' + filename
+                        print(f'Renaming {looked_folder}{filename}, for {image_folder_explore + new_filename}')
+                        os.rename(looked_folder + filename, f'{image_folder_explore + new_filename}')
+                        change_df = True
+                        break
+                        
+                    if key == ord('a') and mode != 'attack':
+                        print(f'Replacing {looked_folder + filename}, for {image_folder_attack + filename}')
+                        os.replace(f'{looked_folder + filename}', f'{image_folder_attack + filename}')
+                        drop_df = True
                         break
 
-
-                    if key == ord('a'):
-                        os.replace(f'{image_folder_path}{filename}', f'augmented_data/attack_img/{filename}')
-                        print(f'moved {filename}')
-                        skip = True
+                    if key == ord('a') and mode == 'attack':
+                        new_filename = 'checked_' + filename
+                        print(f'Renaming {looked_folder}{filename}, for {image_folder_attack + new_filename}')
+                        os.rename(looked_folder + filename, f'{image_folder_attack + new_filename}')
+                        change_df = True
                         break
                     if key == ord('d'):
-                        os.remove(f'{image_folder_path}{filename}')
-                        print(f"Deleted {filename}")
-                        skip = True
+                        print(f'deleting {looked_folder + filename}')
+                        os.remove(f'{looked_folder + filename}')
+                        drop_df = True
                         break
-
                     if key == ord('x'):
                         finish = True
                         break
 
-                # if finish == True:
-                #     break
-                # if skip == True:
-                #     continue
 
-                if drop_db == True:
-                    row = df.loc[df['filename'] == filename]
+                if finish == True:
+                    break
+                if skip == True:
+                    continue
 
-                    df = df.drop(df[not row.empty].index)
-                    print(df)
+                if drop_df == True:
+                    print('trying to drop')
+                    change_index = looked_df['filename'] == filename
+                    if change_index.any():
+                        change_index = looked_df.loc[change_index]
+                        change_index = change_index.index[0]
+                        looked_df = looked_df.drop(change_index)
+                        df_savepath = looked_folder + ('explore_data.csv' if mode == 'explore' else 'attack_data.csv')
+                        looked_df.to_csv(df_savepath, index=False)
+                        print(f'saved {df_savepath}')
+                    else:
+                        print(f'not found {filename} in df')
+                        
+                if change_df == True:
+                    print('trying to change')
+                    change_index = looked_df['filename'] == filename
+                    if change_index.any():
+                        change_index = looked_df.loc[change_index]
+                        change_index = change_index.index[0]
+
+                        x,y = looked_df.loc[change_index]['x'], looked_df.loc[change_index]['y']
+
+                        looked_df.loc[change_index] = [new_filename,x,y]
+                        # print(looked_df.loc[change_index])
+
+                        df_savepath = looked_folder + ('explore_data.csv' if mode == 'explore' else 'attack_data.csv')
+                        looked_df.to_csv(df_savepath, index=False)
+                        print(f'saved {df_savepath}')
+                    else:
+                        print(f'not found {filename} in df')
 
 
-
-                s += 1
-            if s == 100:
-                break
     except Exception as e:
         print(f"{e}")
 
-    # df.to_csv(f"{image_folder_path}/{label_type}_data.csv", index=False)
+    # df.to_csv(f"{looked_folder}/{label_type}_data.csv", index=False)
 
 
-
-image_folder_path, df = path_acquisiton('attack')
-
-label_photos(image_folder_path, df)
-
+image_folder_explore, df_explore = path_acquisiton('explore_aug')
+image_folder_attack, df_attack = path_acquisiton('attack_aug')
 model_classifier = tf.keras.models.load_model('classificator_newgen_augment.h5')
 
 
-# predictions = model_classifier.predict(tbp)[0].tolist()
+### mode = target folder
+reclassify(image_folder_explore, image_folder_attack, df_explore, df_attack, 'attack', model_classifier)
+
+
