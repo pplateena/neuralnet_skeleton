@@ -89,7 +89,7 @@ def path_acquisiton(mode):
             return image_folder_path, df
 
 
-def label_photos(image_folder_path, df):
+def label_photos(image_folder_path, looked_df):
 
     label_type = image_folder_path.split('/')[1].split('_')[0]
     print(f'started labeling for: {label_type}')
@@ -105,17 +105,23 @@ def label_photos(image_folder_path, df):
             cv2.circle(image, (x, y), 10, (255, 0, 0), -1)
             cv2.imshow('labeler', image)
 
-    s= 0
+
     try:
         for filename in os.listdir(image_folder_path):
             print(filename)
             finish = False
             skip = False
+
             if filename.endswith(".jpg") and not filename.startswith(label_type):
+                change_index = looked_df['filename'] == filename
+                if change_index.any():
+                    continue
+
+
+
                 print(f'opened: {filename}')
                 cv2.setMouseCallback('labeler', click_event, param=[image_folder_path + filename])
                 image = cv2.imread(image_folder_path+filename)
-
 
                 clicked_coords = [(0, 0)]
                 x, y = 0, 0
@@ -169,43 +175,9 @@ def label_photos(image_folder_path, df):
     df.to_csv(f"{image_folder_path}/{label_type}_data.csv", index=False)
 
 
+image_folder_explore, df_explore = path_acquisiton('explore_aug')
+image_folder_attack, df_attack = path_acquisiton('attack_aug')
 
-image_folder_path, df = path_acquisiton('attack_aug')
-# label_photos(image_folder_path, df)
+### mode = target folder
+reclassify(image_folder_explore, image_folder_attack, df_explore, df_attack, 'attack', model_classifier)
 
-for filename in os.listdir(image_folder_path):
-    if filename.endswith('.jpg'):
-        img = cv2.imread(image_folder_path + filename)
-        if img.shape != (360, 640, 3):
-
-            print(filename)
-            img = cv2.resize(img, (640, 360))
-
-
-
-            print('finish')
-            cv2.imwrite(image_folder_path + filename, img)
-
-
-for n in range(len(df)) and False:
-    # df = pd.read_csv('augmented_data/explore_img/explore_data.csv')
-    entry = df.iloc[n]
-    print(entry)
-    filename = entry['filename']
-    img = cv2.imread(image_folder_path + filename)
-    if img.shape != (360, 640, 3):
-        x, y = entry['x'],entry['y']
-        print(filename, x ,y)
-        img = cv2.resize(img, (640, 360))
-
-        x, y = int(x/3), int(y/3)
-        df.iloc[n] = [filename, x, y]
-        print('finish')
-        cv2.imwrite(image_folder_path + filename, img)
-
-    # if int(filename.split('_')[1].split('.')[0]) > 60:
-    #     x, y = entry['x'],entry['y']
-    #     x, y = int(x/3), int(y/3)
-    #     df.iloc[n] = [filename, x, y]
-
-    # df.to_csv(f"{image_folder_path}/attack_data.csv", index=False)
