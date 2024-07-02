@@ -7,16 +7,25 @@ import numpy as np
 import tensorflow as tf
 import playsound
 from time import sleep
-
-model_classifier = tf.keras.models.load_model('classificator_newgen_augment.h5')
-model_explorer = tf.keras.models.load_model('mouse_explore_fhd_normalized2.h5')
-model_attacker = tf.keras.models.load_model('mouse_attack_fhd_normalized2.h5')
+from tensorflow.keras.optimizers import Adam
 
 
-attack_sound = 'classification_data/attack.mp3'
-explore_sound ='classification_data/explore.mp3'
-getaway_sound ='classification_data/getaway.mp3'
-loot_sound ='classification_data/loot.mp3'
+with tf.device('CPU:0'):
+    model_classifier = tf.keras.models.load_model('classificator_newgen_augment_gpu.h5', compile = False)
+    model_classifier.compile(optimizer='adam',
+                  loss='categorical_crossentropy',
+                  metrics=['accuracy'])
+
+    model_explorer = tf.keras.models.load_model('mouse_explore_fhd_normalized_gpu.h5', compile = False)
+    model_explorer.compile(loss='mean_squared_error', optimizer=Adam())
+    model_attacker = tf.keras.models.load_model('mouse_attack_fhd_normalized_gpu.h5', compile = False)
+    model_attacker.compile(loss='mean_squared_error', optimizer=Adam())
+
+#
+# attack_sound = 'classification_data/attack.mp3'
+# explore_sound ='classification_data/explore.mp3'
+# getaway_sound ='classification_data/getaway.mp3'
+# loot_sound ='classification_data/loot.mp3'
 
 last_three_preds = []
 # img = capture_mode('desired', (0, 0, 1920, 1080))
@@ -60,57 +69,51 @@ for n in range(50):
     #         cici.release_right_button()
 
 
-    match max_index:
-        case 0:
-            playsound.playsound(attack_sound, block=False)
+    if max_index ==0:
+        # playsound.playsound(attack_sound, block=False)
 
-            predictions = model_attacker.predict(tbp)[0].tolist()
-            x, y = int(predictions[0]), int(predictions[0])
+        predictions = model_attacker.predict(tbp)[0].tolist()
+        x, y = int(predictions[0]), int(predictions[0])
 
-            if x <= 960:
-                x = 960 + x
-            else:
-                x = x + 960
+        if x <= 960:
+            x = 960 + x
+        else:
+            x = x + 960
 
-            if y <= 540:
-                y = 540 + y
-            else:
-                y = y + 540
+        if y <= 540:
+            y = 540 + y
+        else:
+            y = y + 540
 
-            print(x,y)
+        print(x,y)
 
-            cici.move_cursor_steps(x,y)
-            cici.press_right_button()
-            # sleep(0.1)
-            cici.release_right_button()
+        cici.move_cursor_steps(x,y)
+        cici.press_right_button()
+        # sleep(0.1)
+        cici.release_right_button()
 
-        case 1:
-            playsound.playsound(explore_sound, block=True)
+    elif max_index == 1:
+        # playsound.playsound(explore_sound, block=True)
 
-            predictions = model_explorer.predict(tbp)[0].tolist()
-            x,y = int(predictions[0]),int(predictions[1])
-            print('before', x,y)
-            if x <= 960:
-                x = 960 + x
-            else:
-                x = x + 960
+        predictions = model_explorer.predict(tbp)[0].tolist()
+        x,y = int(predictions[0]),int(predictions[1])
+        print('before', x,y)
+        if x <= 960:
+            x = 960 + x
+        else:
+            x = x + 960
 
-            if y <= 540:
-                y = 540 + y
-            else:
-                y = y + 540
+        if y <= 540:
+            y = 540 + y
+        else:
+            y = y + 540
 
-            #
-            print(x,y)
-            cici.press_left_button()
-            cici.move_cursor_steps(x,y)
-            # sleep(0.5)
-            cici.release_left_button()
-        # case 2:
-        #     playsound.playsound(loot_sound, block=True)
-        # case 3:
-        #     playsound.playsound(getaway_sound, block=True)
-        case _:
-            print('ss')
+        #
+        print(x,y)
+        cici.press_left_button()
+        cici.move_cursor_steps(x,y)
+        # sleep(0.5)
+        cici.release_left_button()
+
 
     # sleep(1)
