@@ -95,6 +95,13 @@ def label_photos(image_folder_explore, image_folder_attack, df_explore, df_attac
     print(f'started labeling for: {label_type}')
     looked_folder = image_folder_explore if mode == "explore" else image_folder_attack
     looked_df = df_explore if mode == "explore" else df_attack
+    for entry in looked_df['filename']:
+        if entry.startswith('explore_') or entry.startswith('checked_explore_'):
+
+            saving_index = entry.split('.')[0].split('_')[-1]
+            saving_index = int(saving_index) + 1
+
+
 
     cv2.namedWindow("labeler", cv2.WINDOW_NORMAL)
     cv2.resizeWindow('labeler', 640, 360)
@@ -108,6 +115,7 @@ def label_photos(image_folder_explore, image_folder_attack, df_explore, df_attac
 
 
     try:
+        print(looked_folder)
         for filename in os.listdir(looked_folder):
             finish = False
             drop_df = False
@@ -137,7 +145,7 @@ def label_photos(image_folder_explore, image_folder_attack, df_explore, df_attac
                     if x != clicked_coords[0][0] and y != clicked_coords[0][1]:
                         x, y = clicked_coords[0][0], clicked_coords[0][1]
 
-                        append_df = True
+
 
                     if key == ord('q') and mode != 'explore':
                         print(f'Replacing {looked_folder}{filename}, for {image_folder_explore + filename}')
@@ -159,6 +167,8 @@ def label_photos(image_folder_explore, image_folder_attack, df_explore, df_attac
                     if key == ord('x'):
                         finish = True
                         break
+                else:
+                    append_df = True
 
                 if finish == True:
                     break
@@ -179,10 +189,12 @@ def label_photos(image_folder_explore, image_folder_attack, df_explore, df_attac
                 if append_df == True:
                     print('trying to append')
                     append_index = len(looked_df)
-                    new_filename = mode + '_' + str(append_index) + '.jpg'
-                    looked_df.loc[append_index] = [new_filename,x,y]
-                    print(looked_df.loc[append_index])
 
+                    new_filename = mode + '_' + str(saving_index) + '.jpg'
+                    saving_index += 1
+                    looked_df.loc[append_index] = [new_filename,x,y]
+
+                    print(f'changed name for: {filename}, to: {new_filename}')
                     os.rename(f'{looked_folder + filename}', f'{looked_folder + new_filename}')
                     df_savepath = looked_folder + ('explore_data.csv' if mode == 'explore' else 'attack_data.csv')
                     looked_df.to_csv(df_savepath, index=False)
@@ -199,5 +211,5 @@ image_folder_explore, df_explore = path_acquisiton('explore')
 image_folder_attack, df_attack = path_acquisiton('attack')
 
 ### mode = target folder
-label_photos(image_folder_explore, image_folder_attack, df_explore, df_attack, 'attack')
+label_photos(image_folder_explore, image_folder_attack, df_explore, df_attack, 'explore')
 
