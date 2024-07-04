@@ -1,72 +1,151 @@
-import os
 
 import numpy as np
+import os
 import pandas as pd
-import tensorflow as tf
 import cv2
+import tensorflow as tf
+print(tf.config.list_physical_devices('GPU'))
 
-def path_acquisiton(mode):
-    match mode:
-        case 'attack':
-            try:
-                df = pd.read_csv('classification_data/attack_img/attack_data.csv')
-                looked_folder = 'classification_data/attack_img/'
-            except FileNotFoundError:
-                print('file not found')
-                df = create_df('classification_data/attack_img/attack_data.csv')
-            except Exception as e:
-                print(f"exception {e}")
-            return looked_folder, df
-        case 'attack_aug':
-            try:
-                df = pd.read_csv('augmented_data/attack_img/attack_data.csv')
-                looked_folder = 'augmented_data/attack_img/'
-            except FileNotFoundError:
-                print('file not found')
-                df = create_df('augmented_data/attack_img/attack_data.csv')
-            except Exception as e:
-                print(f"exception {e}")
-            return looked_folder, df
-        case 'explore':
-            try:
-                df = pd.read_csv('classification_data/explore_img/explore_data.csv')
-                looked_folder = 'classification_data/explore_img/'
-            except FileNotFoundError:
-                print('file not found')
-                df = create_df('classification_data/explore_img/explore_data.csv')
-            except Exception as e:
-                print(f"exception {e}")
-            return looked_folder, df
-        case 'explore_aug':
-            try:
-                df = pd.read_csv('augmented_data/explore_img/explore_data.csv')
-                looked_folder = 'augmented_data/explore_img/'
-            except FileNotFoundError:
-                print('file not found')
-                df = create_df('augmented_data/explore_img/explore_data.csv')
-            except Exception as e:
-                print(f"exception {e}")
-            return looked_folder, df
-        case 'getaway':
-            try:
-                df = pd.read_csv('classification_data/getaway_img/getaway_data.csv')
-                looked_folder = 'classification_data/getaway_img/'
-            except FileNotFoundError:
-                print('file not found')
-                df = create_df('classification_data/getaway_img/getaway_data.csv')
-            except Exception as e:
-                print(f"exception {e}")
-            return looked_folder, df
-        case 'loot':
-            try:
-                df = pd.read_csv('classification_data/loot_img/loot_data.csv')
-                looked_folder = 'classification_data/loot_img/'
-            except FileNotFoundError:
-                print('file not found')
-                df = create_df('classification_data/loot_img/loot_data.csv')
-            except Exception as e:
-                print(f"exception {e}")
-            return looked_folder, df
+
+
+
+
+# def path_acquisiton(mode):
+#     match mode:
+#         case 'attack':
+#             try:
+#                 df = pd.read_csv('classification_data/attack_img/attack_data.csv')
+#                 looked_folder = 'classification_data/attack_img/'
+#             except FileNotFoundError:
+#                 print('file not found')
+#                 df = create_df('classification_data/attack_img/attack_data.csv')
+#             except Exception as e:
+#                 print(f"exception {e}")
+#             return looked_folder, df
+#         case 'attack_aug':
+#             try:
+#                 df = pd.read_csv('augmented_data/attack_img/attack_data.csv')
+#                 looked_folder = 'augmented_data/attack_img/'
+#             except FileNotFoundError:
+#                 print('file not found')
+#                 df = create_df('augmented_data/attack_img/attack_data.csv')
+#             except Exception as e:
+#                 print(f"exception {e}")
+#             return looked_folder, df
+#         case 'explore':
+#             try:
+#                 df = pd.read_csv('classification_data/explore_img/explore_data.csv')
+#                 looked_folder = 'classification_data/explore_img/'
+#             except FileNotFoundError:
+#                 print('file not found')
+#                 df = create_df('classification_data/explore_img/explore_data.csv')
+#             except Exception as e:
+#                 print(f"exception {e}")
+#             return looked_folder, df
+#         case 'explore_aug':
+#             try:
+#                 df = pd.read_csv('augmented_data/explore_img/explore_data.csv')
+#                 looked_folder = 'augmented_data/explore_img/'
+#             except FileNotFoundError:
+#                 print('file not found')
+#                 df = create_df('augmented_data/explore_img/explore_data.csv')
+#             except Exception as e:
+#                 print(f"exception {e}")
+#             return looked_folder, df
+#         case 'getaway':
+#             try:
+#                 df = pd.read_csv('classification_data/getaway_img/getaway_data.csv')
+#                 looked_folder = 'classification_data/getaway_img/'
+#             except FileNotFoundError:
+#                 print('file not found')
+#                 df = create_df('classification_data/getaway_img/getaway_data.csv')
+#             except Exception as e:
+#                 print(f"exception {e}")
+#             return looked_folder, df
+#         case 'loot':
+#             try:
+#                 df = pd.read_csv('classification_data/loot_img/loot_data.csv')
+#                 looked_folder = 'classification_data/loot_img/'
+#             except FileNotFoundError:
+#                 print('file not found')
+#                 df = create_df('classification_data/loot_img/loot_data.csv')
+#             except Exception as e:
+#                 print(f"exception {e}")
+#             return looked_folder, df
+
+
+def path_acquisition(mode):
+    if mode == 'attack':
+        try:
+            df = pd.read_csv('classification_data/attack_img/attack_data.csv')
+            looked_folder = 'classification_data/attack_img/'
+        except FileNotFoundError:
+            print('file not found')
+            df = create_df('classification_data/attack_img/attack_data.csv')
+        except Exception as e:
+            print(f"exception {e}")
+        return looked_folder, df
+
+    elif mode == 'attack_aug':
+        try:
+            df = pd.read_csv('augmented_data/attack_img/attack_data.csv')
+            looked_folder = 'augmented_data/attack_img/'
+        except FileNotFoundError:
+            print('file not found')
+            df = create_df('augmented_data/attack_img/attack_data.csv')
+        except Exception as e:
+            print(f"exception {e}")
+        return looked_folder, df
+
+    elif mode == 'explore':
+        try:
+            df = pd.read_csv('classification_data/explore_img/explore_data.csv')
+            looked_folder = 'classification_data/explore_img/'
+        except FileNotFoundError:
+            print('file not found')
+            df = create_df('classification_data/explore_img/explore_data.csv')
+        except Exception as e:
+            print(f"exception {e}")
+        return looked_folder, df
+
+    elif mode == 'explore_aug':
+        try:
+            df = pd.read_csv('augmented_data/explore_img/explore_data.csv')
+            looked_folder = 'augmented_data/explore_img/'
+        except FileNotFoundError:
+            print('file not found')
+            df = create_df('augmented_data/explore_img/explore_data.csv')
+        except Exception as e:
+            print(f"exception {e}")
+        return looked_folder, df
+
+    elif mode == 'getaway':
+        try:
+            df = pd.read_csv('classification_data/getaway_img/getaway_data.csv')
+            looked_folder = 'classification_data/getaway_img/'
+        except FileNotFoundError:
+            print('file not found')
+            df = create_df('classification_data/getaway_img/getaway_data.csv')
+        except Exception as e:
+            print(f"exception {e}")
+        return looked_folder, df
+
+    elif mode == 'loot':
+        try:
+            df = pd.read_csv('classification_data/loot_img/loot_data.csv')
+            looked_folder = 'classification_data/loot_img/'
+        except FileNotFoundError:
+            print('file not found')
+            df = create_df('classification_data/loot_img/loot_data.csv')
+        except Exception as e:
+            print(f"exception {e}")
+        return looked_folder, df
+
+    else:
+        print('Invalid mode')
+        return None, None
+
+
 def prediction_preparation(img):
     tbp = np.asarray(img)
     tbp = np.expand_dims(tbp, axis=0)
@@ -188,8 +267,8 @@ def reclassify(image_folder_explore, image_folder_attack, df_explore, df_attack,
     # df.to_csv(f"{looked_folder}/{label_type}_data.csv", index=False)
 
 
-image_folder_explore, df_explore = path_acquisiton('explore_aug')
-image_folder_attack, df_attack = path_acquisiton('attack_aug')
+image_folder_explore, df_explore = path_acquisition('explore_aug')
+image_folder_attack, df_attack = path_acquisition('attack_aug')
 model_classifier = tf.keras.models.load_model('classificator_newgen_augment.h5')
 
 
