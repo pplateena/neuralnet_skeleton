@@ -4,39 +4,22 @@ from utility_modules.capture import capture_mode
 import cv2
 import numpy as np
 
-import tensorflow as tf
-import playsound
 from time import sleep
-from tensorflow.keras.optimizers import Adam
+
 import os
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-# tf.compat.v1.disable_eager_execution()
-# tf.compat.v1.experimental.output_all_intermediates(True)
-
-
 model_classifier = tf.keras.models.load_model('classificator_newgen_augment_gigadata.h5')
-# model_classifier.compile(optimizer='adam',
-#                   loss='categorical_crossentropy',
-#                   metrics=['accuracy'])
+
 print('loade model_class')
 model_explorer = tf.keras.models.load_model('ME_gpu.h5')
-# model_explorer.compile(loss='mean_squared_error', optimizer=Adam())
 
 print('loade ME')
 model_attacker = tf.keras.models.load_model('mouse_attack_fhd_normalized_gpu.h5', compile = False)
 model_attacker.compile(loss='mean_squared_error', optimizer=Adam())
 print('loade MA')
-#
-# attack_sound = 'classification_data/attack.mp3'
-# explore_sound ='classification_data/explore.mp3'
-# getaway_sound ='classification_data/getaway.mp3'
-# loot_sound ='classification_data/loot.mp3'
 
 last_three_preds = []
 
-
-# for n in range(50):
 
 while True:
     try:
