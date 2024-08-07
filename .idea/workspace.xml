@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="34dca1c0-3903-40bc-8fca-7ee88bd0d6ad" name="Changes" comment="ka[p new cemetery full nn">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classification_data/explore_img/7018.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/classification_nn.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/classification_nn.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fine_recorder.py" beforeDir="false" afterPath="$PROJECT_DIR$/fine_recorder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image_labeler.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_labeler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mouse_move_nn.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/mouse_explore_nn.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mouse_nn.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/mouse_nn.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/predictor.py" beforeDir="false" afterPath="$PROJECT_DIR$/predictor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transformer.py" beforeDir="false" afterPath="$PROJECT_DIR$/transformer.py" afterDir="false" />
-    </list>
+    <list default="true" id="34dca1c0-3903-40bc-8fca-7ee88bd0d6ad" name="Changes" comment="ka[p new cemetery full nn" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,6 +13,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "pplateena"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/pplateena/neuralnet_skeleton.git",
+    "accountId": "660dd7f1-640a-472e-85eb-6d369ddfdc89"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 7
@@ -35,25 +37,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.classifcator.executor&quot;: &quot;Run&quot;,
-    &quot;Python.fine_recorder.executor&quot;: &quot;Run&quot;,
-    &quot;Python.image_labeler.executor&quot;: &quot;Run&quot;,
-    &quot;Python.predictor.executor&quot;: &quot;Run&quot;,
-    &quot;Python.transformer.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;clasification-nn&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/neuralnet_skeleton&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.classifcator.executor": "Run",
+    "Python.fine_recorder.executor": "Run",
+    "Python.image_labeler.executor": "Run",
+    "Python.predictor.executor": "Run",
+    "Python.transformer.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "clasification-nn",
+    "last_opened_file_path": "E:/Github/neuralnet_skeleton",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\neuralnet_skeleton" />
@@ -92,7 +94,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-50da183f06c8-2887949eec09-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.13135.95" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.18034.82" />
+        <option value="bundled-python-sdk-975db3bf15a3-2767605e8bc2-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.18034.82" />
       </set>
     </attachedChunks>
   </component>

@@ -22,9 +22,6 @@ def draw_dot(image,button, x, y, radius=20, thickness=-1):
     color = (255, 0, 0) if button == "left" else (0, 0, 255)
     cv2.circle(image, (x, y), radius, color, thickness)
 
-
-
-
 def sort_data():
     folder_path = "dataset/"
     killer = 0
