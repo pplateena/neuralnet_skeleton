@@ -173,7 +173,7 @@ def move_mouse_steps(end_x, end_y):
     sleep(0.03)
 
 
-def move_cursor_steps(end_x, end_y):
+def move_cursor_steps(end_x, end_y, pyautogui=None):
     from pyautogui import position
     current_position = position()
     start_x = current_position[0]

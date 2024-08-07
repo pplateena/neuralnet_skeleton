@@ -22,9 +22,6 @@ def draw_dot(image,button, x, y, radius=20, thickness=-1):
     color = (255, 0, 0) if button == "left" else (0, 0, 255)
     cv2.circle(image, (x, y), radius, color, thickness)
 
-
-
-
 def sort_data():
     folder_path = "dataset/"
     killer = 0
@@ -83,17 +80,17 @@ def sort_data():
 
         os.replace(f'dataset/{filename}', f'prep_data/{filename}')  # Use replace for move functionality
         print(f"Moved {filename} to prep_data")
-# sort_data()
+sort_data()
 def create_df():
     df = pd.DataFrame(columns=["filename", "scalar_x", "scalar_y", "s_button"])
     df.to_csv("prep_data/image_data.csv", index=False)
 
-create_df()
+# create_df()
 def prepare_data():
     folder_path = "prep_data/"
     df = pd.read_csv("prep_data/image_data.csv")
 
-    counter = len(df)+7000
+    counter = 2300
     for filename in os.listdir(folder_path):
         if filename.endswith(".jpg") and filename.startswith("M_"):
             button, x, y = parse_mfile(filename)
@@ -106,7 +103,7 @@ def prepare_data():
             s_button = 0 if button == "left" else 100
             print(scalar_x, scalar_y,s_button, filename)
 
-            df.loc[counter] = [f'{counter}.jpg', scalar_x, scalar_y, s_button]
+            # df.loc[counter] = [f'{counter}.jpg', scalar_x, scalar_y, s_button]
             os.rename(f'prep_data/{filename}', f'prep_data/{counter}.jpg')
             counter += 1
 
