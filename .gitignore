@@ -13,3 +13,5 @@ classification_data/attack_img/7021.jpg
 .idea/workspace.xml
 /.idea
 /classification_data/attack_img
+.idea/neuralnet_skeleton.iml
+/.idea
