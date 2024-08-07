@@ -6,9 +6,16 @@ def draw_dot(image,button, x, y, radius=20, thickness=-1):
     color = (255, 0, 0) if button == "left" else (0, 0, 255)
     cv2.circle(image, (x, y), radius, color, thickness)
 
+def create_df():
+    df = pd.DataFrame(columns=["filename", "scalar_x", "scalar_y", "s_button"])
 
-def sort_data(folder_path, desired_data_folder):
-    # folder_path = "prep_data/"
+    df.to_csv("prep_data/image_data.csv", index=False)
+
+
+# create_df()
+def sort_data():
+    folder_path = "prep_data/"
+
     killer = 0
 
     delete_list = []
@@ -93,17 +100,6 @@ def sort_data(folder_path, desired_data_folder):
     else:
         print('didnt change files')
 
-
-
-sort_data('augmented_data','augmented_data')
-
-
-def create_df():
-    df = pd.DataFrame(columns=["filename", "scalar_x", "scalar_y", "s_button"])
-
-    df.to_csv("prep_data/image_data.csv", index=False)
-
-
 def prepare_data():
     folder_path = "prep_data/"
     df = pd.read_csv("prep_data/image_data.csv")
@@ -126,11 +122,7 @@ def prepare_data():
             counter += 1
 
     df.to_csv("prep_data/image_data.csv", index=False)
+
+sort_data()
 # prepare_data()
-
-
-
-
-# create_df()
-
 # check_prep()

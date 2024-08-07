@@ -14,17 +14,3 @@ classification_data/attack_img/7021.jpg
 /.idea
 /classification_data/attack_img
 /.idea
-/augmented_data
-*.h5
-*.pyc
-*.pyc
-*.pyc
-*.xml
-*.iml
-*.xml
-/predicted_data
-*.pyc
-*.rar
-
-*.pth
-/.idea
