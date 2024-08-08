@@ -223,9 +223,9 @@ def relabeler_afterpred(image_folder_explore, image_folder_attack, df_explore, d
             cv2.imshow('labeler', img_clone)
 
         if event == cv2.EVENT_RBUTTONDOWN:
-            # global img_clone  # Access the global image variable within the function
-            img_clone = cv2.imread(param[0]).copy()  # Reload image copy on click
-            clicked_coords[0] = (x, y)  # Update coordinates on click
+            # global img_clone
+            img_clone = cv2.imread(param[0]).copy()
+            clicked_coords[0] = (x, y)
 
             # global change_df_attack, change_df_explore
 
