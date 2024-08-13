@@ -15,6 +15,17 @@ _Currently I am working on documenting already existing material as well as crea
 - [ ] Fine tuning of models
 - [ ] Fully capable AI-agent 
 
+Gameplay showcase:
+
+
+https://github.com/user-attachments/assets/880b3f12-befd-438c-b038-ecedd6ff7bb5
+
+
+Predictions illustration(red-attack, blue-move):
+
+https://github.com/user-attachments/assets/590d47c5-8ecf-40e6-8484-841026e6ab9b
+
+
 ## Explanation and usage
 ### General
 <p> 
