@@ -14,3 +14,7 @@ classification_data/attack_img/7021.jpg
 /.idea
 /classification_data/attack_img
 /.idea
+/augmented_data
+*.pth
+/predicted_data
+*.rar
